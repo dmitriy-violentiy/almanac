@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./styles/App.css"
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
@@ -9,17 +9,19 @@ import MyModal from "./components/UI/myModal/MyModal";
 import MyButton from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
 import axios from 'axios'
+import PostService from "./API/postsService";
+import Loader from "./components/UI/loader/Loader";
 
 function App() {
-   const [posts, setPosts] = useState([
-      {id: 1, title: "aa", body: "qq"},
-      {id: 2, title: "cc", body: "ss"},
-      {id: 3, title: "bb", body: "zz"}
-   ])
-
+   const [posts, setPosts] = useState([])
    const [filter, setFilter] = useState({sort: '', query: ''})
    const [modal, setModal] = useState(false)
    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+   const [isPostsLoading, setIsPostsLoading] = useState(false)
+
+   useEffect(() => {
+      fetchPosts()      
+   }, [])
 
    const createPost = (newPost) => {
       setPosts([...posts, newPost])
@@ -27,8 +29,10 @@ function App() {
    }
 
    async function fetchPosts() {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setPosts(response.data)
+      setIsPostsLoading(true)
+      const posts = await PostService.getAll()
+      setPosts(posts)
+      setIsPostsLoading(false)
    }
 
    const removePost = (post) => {
@@ -44,11 +48,14 @@ function App() {
          <MyModal visible={modal} setVisible={setModal}>
             <PostForm create={createPost}/>
          </MyModal>
-         <PostFilter 
+         <PostFilter
             filter={filter} 
             setFilter={setFilter} 
          />
-            <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Posts JS"} />
+         {isPostsLoading?<Loader/> :<PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Posts JS"} />
+
+         }
+            
       </div>
    );
 }

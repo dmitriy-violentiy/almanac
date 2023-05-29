@@ -19,7 +19,6 @@ function PostForm({create}) {
    return (
       <div>
          <form>
-            {/*Управляемый компонент*/}
             <MyInput 
                type="text" 
                placeholder="Post naming" 
