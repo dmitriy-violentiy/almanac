@@ -2,25 +2,35 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./styles/App.css"
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
-import MySelect from "./components/UI/select/MySelect";
-import MyInput from "./components/UI/input/MyInput";
 import PostFilter from "./components/PostFilter";
 import MyModal from "./components/UI/myModal/MyModal";
 import MyButton from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
-import axios from 'axios'
-import PostService from "./API/postsService";
+import PostsService from "./API/postsService";
 import Loader from "./components/UI/loader/Loader";
+import { useFetching } from "./hooks/useFetching";
+import { getPageCount, getPagesArray } from "./components/utils/pages";
+import Pagination from "./components/UI/pagination/Pagination";
 
 function App() {
    const [posts, setPosts] = useState([])
    const [filter, setFilter] = useState({sort: '', query: ''})
    const [modal, setModal] = useState(false)
+   const [totalPages, setTotalPages] = useState(0)
+   const [limit, setLimit] = useState(10)
+   const [page, setPage] = useState(1)
+
    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
-   const [isPostsLoading, setIsPostsLoading] = useState(false)
+
+   const [fetchPosts, isPostsLoading, postError] = useFetching( async(limit, page) => {
+      const response = await PostsService.getAll(limit, page)
+      setPosts(response.data)
+      const totalCount = (response.headers['x-total-count'])
+      setTotalPages(getPageCount(totalCount, limit))
+   })
 
    useEffect(() => {
-      fetchPosts()      
+      fetchPosts(limit, page)      
    }, [])
 
    const createPost = (newPost) => {
@@ -28,15 +38,13 @@ function App() {
       setModal(false)
    }
 
-   async function fetchPosts() {
-      setIsPostsLoading(true)
-      const posts = await PostService.getAll()
-      setPosts(posts)
-      setIsPostsLoading(false)
-   }
-
    const removePost = (post) => {
       setPosts(posts.filter(p => p.id !== post.id))
+   }
+
+   const changePage = (page) => {
+      setPage(page)
+      fetchPosts(limit, page)
    }
 
    return (
@@ -52,9 +60,20 @@ function App() {
             filter={filter} 
             setFilter={setFilter} 
          />
-         {isPostsLoading?<Loader/> :<PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Posts JS"} />
-
+         {postError &&
+            <h1>Произошла ошибка! ${postError}</h1>
          }
+         {isPostsLoading ?
+            <Loader /> :
+            <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Posts JS"} />
+         }
+
+         <Pagination 
+            page={page} 
+            changePage={changePage} 
+            totalPages={totalPages} 
+         />
+         
             
       </div>
    );
