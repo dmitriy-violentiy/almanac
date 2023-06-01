@@ -27,6 +27,10 @@
    align-items: center;
 }
 
+.post__btns {
+   display: flex;
+}
+
 /*animation style*/
 .post-enter {
    transform: translateX(-1000px);
