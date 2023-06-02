@@ -12,7 +12,6 @@ function PostList({posts, title, remove}) {
    return (
       <div className="App">
          <h1>{title}</h1>
-         {/*Оборачиваем для использования анимации из библиотеки react-transition-group*/}
          <TransitionGroup>
 
             {posts.map((post, index) => 

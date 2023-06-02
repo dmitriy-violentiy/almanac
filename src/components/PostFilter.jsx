@@ -10,6 +10,7 @@ const PostFilter = ({filter, setFilter}) => {
                onChange={e => setFilter({...filter, query: e.target.value})} 
                placeholder="Поиск..."
             />
+            <div>Сортировка:</div>
             <MySelect
                value={filter.sort}
                onChange={selectedSort => setFilter({...filter, sort: selectedSort})}

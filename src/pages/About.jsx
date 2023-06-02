@@ -2,9 +2,14 @@ import React from "react";
 
 const About = () => {
    return (
-      <h1>
-         Общая информация
-      </h1>
+      <div>
+         <h1>
+            Общая информация
+         </h1>
+         <p>
+            2023
+         </p>
+      </div>
    )
 }
 

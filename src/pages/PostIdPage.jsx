@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "../styles/App.css"
 import { useParams } from "react-router-dom";
 import { useFetching } from "../hooks/useFetching";
 import PostsService from "../API/postsService";
@@ -24,13 +25,17 @@ const PostIdPage = () => {
    }, [])
 
    return (
-      <div>
-         <h1>Страница поста c ID = {params.id}</h1>
-         {isLoading 
-            ? <Loader />
-            :<div>{post.id}. {post.title}</div>
-         }
-         <h1>Комментарии:</h1>
+      <div className="post__info">
+         <div className="post__info_body">
+            <h2>Страница поста c ID = {params.id}</h2>
+            {isLoading 
+               ? <Loader />
+               :<div>{post.id}. {post.title}</div>
+            }
+         </div>
+         
+
+         <h2>Комментарии:</h2>
          {isComLoading
             ? <Loader />
             :  <div>

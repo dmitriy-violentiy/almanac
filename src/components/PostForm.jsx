@@ -21,17 +21,17 @@ function PostForm({create}) {
          <form>
             <MyInput 
                type="text" 
-               placeholder="Post naming" 
+               placeholder="Заголовок поста" 
                value={post.title}
                onChange={e => setPost({...post, title: e.target.value})} 
             />
             <MyInput 
                type="text" 
-               placeholder="Description post"
+               placeholder="Текст поста"
                value={post.body}
                onChange={e => setPost({...post, body: e.target.value})}
             />
-            <MyButton onClick={addNewPost}>Create post</MyButton>
+            <MyButton onClick={addNewPost}>Создать новый пост</MyButton>
          </form>
       </div>
    );

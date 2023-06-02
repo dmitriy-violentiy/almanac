@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/App.css"
 import PostList from "../components/PostList";
 import PostForm from "../components/PostForm";
@@ -9,7 +9,7 @@ import { usePosts } from "../hooks/usePosts";
 import PostsService from "../API/postsService";
 import Loader from "../components/UI/loader/Loader";
 import { useFetching } from "../hooks/useFetching";
-import { getPageCount, getPagesArray } from "../components/utils/pages";
+import { getPageCount } from "../components/utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
 import { useObserver } from "../hooks/useObserver";
 import MySelect from "../components/UI/select/MySelect";
@@ -19,7 +19,7 @@ function Posts() {
    const [filter, setFilter] = useState({sort: '', query: ''})
    const [modal, setModal] = useState(false)
    const [totalPages, setTotalPages] = useState(0)
-   const [limit, setLimit] = useState(5)
+   const [limit, setLimit] = useState(10)
    const [page, setPage] = useState(1)
    const lastElement = useRef()
 
@@ -55,9 +55,9 @@ function Posts() {
 
    return (
       <div className="App">
-         <button onClick={fetchPosts}>get posts</button>
+         {/* <button onClick={fetchPosts}>Получить посты</button> */}
          <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
-            Создать пользователя
+            Создать пост
          </MyButton>
          <MyModal visible={modal} setVisible={setModal}>
             <PostForm create={createPost}/>
@@ -66,6 +66,7 @@ function Posts() {
             filter={filter} 
             setFilter={setFilter} 
          />
+         <div>Количество выводимых постов за раз:</div>
          <MySelect 
             value={limit}
             onChange={value => setLimit(value)}
@@ -80,17 +81,17 @@ function Posts() {
          {postError &&
             <h1>Произошла ошибка! ${postError}</h1>
          }
-         <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Posts JS"} />
+         <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Список постов"} />
          <div ref={lastElement}></div>
          {isPostsLoading &&
             <Loader />
          }
 
-         <Pagination 
+         {/* <Pagination 
             page={page} 
             changePage={changePage} 
             totalPages={totalPages} 
-         />
+         /> */}
          
       </div>
    );
