@@ -12,13 +12,14 @@ import { useFetching } from "../hooks/useFetching";
 import { getPageCount, getPagesArray } from "../components/utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
 import { useObserver } from "../hooks/useObserver";
+import MySelect from "../components/UI/select/MySelect";
 
 function Posts() {
    const [posts, setPosts] = useState([])
    const [filter, setFilter] = useState({sort: '', query: ''})
    const [modal, setModal] = useState(false)
    const [totalPages, setTotalPages] = useState(0)
-   const [limit, setLimit] = useState(10)
+   const [limit, setLimit] = useState(5)
    const [page, setPage] = useState(1)
    const lastElement = useRef()
 
@@ -37,7 +38,7 @@ function Posts() {
 
    useEffect(() => {
       fetchPosts(limit, page)      
-   }, [page])
+   }, [page, limit])
 
    const createPost = (newPost) => {
       setPosts([...posts, newPost])
@@ -64,6 +65,17 @@ function Posts() {
          <PostFilter
             filter={filter} 
             setFilter={setFilter} 
+         />
+         <MySelect 
+            value={limit}
+            onChange={value => setLimit(value)}
+            defaultValue='Количество элементов на странице'
+            options={[
+               {value: 5, name: '5'},
+               {value: 10, name: '10'},
+               {value: 25, name: '25'},
+               {value: -1, name: 'Показать все'}
+            ]}
          />
          {postError &&
             <h1>Произошла ошибка! ${postError}</h1>
