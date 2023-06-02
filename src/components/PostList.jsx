@@ -2,7 +2,6 @@ import React from "react";
 import {CSSTransition, TransitionGroup} from "react-transition-group"
 import "../styles/App.css"
 import PostItem from "./PostItem";
-import Counter from "./Counter";
 
 function PostList({posts, title, remove}) {
    if(!posts.length) {
@@ -27,8 +26,6 @@ function PostList({posts, title, remove}) {
             )}
 
          </TransitionGroup>
-         
-         <Counter />
       </div>
    );
 }

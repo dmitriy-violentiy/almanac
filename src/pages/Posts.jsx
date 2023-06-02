@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "../styles/App.css"
 import PostList from "../components/PostList";
 import PostForm from "../components/PostForm";
@@ -11,6 +11,7 @@ import Loader from "../components/UI/loader/Loader";
 import { useFetching } from "../hooks/useFetching";
 import { getPageCount, getPagesArray } from "../components/utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
+import { useObserver } from "../hooks/useObserver";
 
 function Posts() {
    const [posts, setPosts] = useState([])
@@ -19,19 +20,24 @@ function Posts() {
    const [totalPages, setTotalPages] = useState(0)
    const [limit, setLimit] = useState(10)
    const [page, setPage] = useState(1)
+   const lastElement = useRef()
 
    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
    const [fetchPosts, isPostsLoading, postError] = useFetching( async(limit, page) => {
       const response = await PostsService.getAll(limit, page)
-      setPosts(response.data)
+      setPosts([...posts, ...response.data])
       const totalCount = (response.headers['x-total-count'])
       setTotalPages(getPageCount(totalCount, limit))
    })
 
+   useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+      setPage(page + 1)
+   })
+
    useEffect(() => {
       fetchPosts(limit, page)      
-   }, [])
+   }, [page])
 
    const createPost = (newPost) => {
       setPosts([...posts, newPost])
@@ -44,7 +50,6 @@ function Posts() {
 
    const changePage = (page) => {
       setPage(page)
-      fetchPosts(limit, page)
    }
 
    return (
@@ -63,9 +68,10 @@ function Posts() {
          {postError &&
             <h1>Произошла ошибка! ${postError}</h1>
          }
-         {isPostsLoading ?
-            <Loader /> :
-            <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Posts JS"} />
+         <PostList remove={removePost} posts={sortedAndSearchedPosts} title={"Posts JS"} />
+         <div ref={lastElement}></div>
+         {isPostsLoading &&
+            <Loader />
          }
 
          <Pagination 
@@ -74,7 +80,6 @@ function Posts() {
             totalPages={totalPages} 
          />
          
-            
       </div>
    );
 }
