@@ -17,7 +17,7 @@ function PostItem(props) {
                <strong>{props.post.title}</strong>
                <div>
                   {props.post.body}
-                  <PostComments />
+                  {/* <PostComments /> */}
                </div>
             </div>
             <div className="post__btns">

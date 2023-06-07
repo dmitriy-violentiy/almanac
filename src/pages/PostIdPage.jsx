@@ -38,7 +38,8 @@ const PostIdPage = () => {
                :<div className="post__info_text">
                   <div className="post__info_avatar"><img src={avatar} alt="" /></div>
                   <div>
-                     <h2>Пост:</h2>
+
+                     <h2>Пост пользователя с ID: {post.id}</h2>
                      <b>{post.title}</b>
                      <div>{post.body}</div>   
                   </div>
