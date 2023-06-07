@@ -114,3 +114,9 @@ select {
    margin-bottom: 20px;
  }
 
+ .post__avatar img {
+   max-width: 100px;
+   margin-right: 20px;
+   cursor: pointer;
+ }
+
