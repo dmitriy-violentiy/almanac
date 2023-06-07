@@ -102,3 +102,15 @@ select {
    color: gray;
  }
 
+ .about {
+   max-width: 800px;
+ }
+
+ .about h1 {
+   margin-bottom: 15px;
+ }
+
+ .about hr {
+   margin-bottom: 20px;
+ }
+

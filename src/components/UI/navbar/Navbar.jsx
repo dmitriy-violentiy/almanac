@@ -6,7 +6,7 @@ const Navbar = () => {
       <div className="navbar">
             <div className="navbar__links">
                <Link to="/posts">Главная</Link>
-               <Link to="/about">О сайте</Link>
+               <Link to="/about">Обо мне</Link>
             </div>
          </div>
    )
