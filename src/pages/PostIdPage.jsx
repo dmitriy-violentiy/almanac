@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../styles/App.css"
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useFetching } from "../hooks/useFetching";
 import PostsService from "../API/postsService";
 import Loader from "../components/UI/loader/Loader";
 import PostComments from "../components/PostComments";
+import MyButton from "../components/UI/button/MyButton";
+import avatar from "../img/avatar.png"
 
 const PostIdPage = () => {
    const params = useParams()
@@ -29,10 +31,18 @@ const PostIdPage = () => {
    return (
       <div className="post__info">
          <div className="post__info_body">
-            <h2>Страница поста c ID = {params.id}</h2>
+            <Link to="/posts"><MyButton>Назад</MyButton></Link>
+            
             {isLoading 
                ? <Loader />
-               :<div>{post.id}. {post.title}</div>
+               :<div className="post__info_text">
+                  <div className="post__info_avatar"><img src={avatar} alt="" /></div>
+                  <div>
+                     <h2>Пост:</h2>
+                     <b>{post.title}</b>
+                     <div>{post.body}</div>   
+                  </div>
+               </div>
             }
          </div>
          

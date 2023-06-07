@@ -22,6 +22,7 @@
 
 .post__info {
    max-width: 800px;
+   padding: 0 5px;
 }
 
 .post__info_body {
@@ -114,9 +115,19 @@ select {
    margin-bottom: 20px;
  }
 
- .post__avatar img {
+ .post__avatar img, .post__info_avatar img {
    max-width: 100px;
    margin-right: 20px;
    cursor: pointer;
+ }
+
+ .post__info_avatar img {
+   cursor: default;
+   margin-top: 10px
+ }
+
+ .post__info_text {
+   display: flex;
+   align-items: center;
  }
 
