@@ -32,7 +32,6 @@ const PostComments = () => {
                      </div>
                   )}
                </div>
-
          }
       </div>
    )

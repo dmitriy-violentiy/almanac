@@ -62,7 +62,7 @@ function Posts() {
    return (
       <div className="App">
          {/* <button onClick={fetchPosts}>Получить посты</button> */}
-         <MyButton style={{marginTop: 30}} onClick={() => setModal(true)}>
+         <MyButton onClick={() => setModal(true)}>
             Создать пост
          </MyButton>
          <MyModal visible={modal} setVisible={setModal}>

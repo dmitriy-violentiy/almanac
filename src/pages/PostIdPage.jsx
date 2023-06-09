@@ -11,28 +11,20 @@ import avatar from "../img/avatar.png"
 const PostIdPage = () => {
    const params = useParams()
    const [post, setPost] = useState({})
-/*    const [comments, setComments] = useState([]) */
    
       const [fetchPostById, isLoading, error] = useFetching( async (id) => {
       const response = await PostsService.getById(id)
       setPost(response.data)
    })
- 
-   /* const [fetchComents, isComLoading, comError] = useFetching( async (id) => {
-      const response = await PostsService.getCommentsByPostId(id)
-      setComments(response.data)
-   }) */
    
    useEffect(() => {
       fetchPostById(params.id)
-      /* fetchComents(params.id) */
    }, [])
 
    return (
       <div className="post__info">
          <div className="post__info_body">
             <Link to="/posts"><MyButton>Назад</MyButton></Link>
-            
             {isLoading 
                ? <Loader />
                :<div className="post__info_text">

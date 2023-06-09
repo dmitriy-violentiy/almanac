@@ -1,6 +1,5 @@
 import { useMemo } from "react"
 
-//функция отработает, если только будут изменено то, что находится в зависимостях
 export const useSortedPosts = (posts, sort) => {
    const sortedPosts = useMemo(() => {
       if(sort) {
