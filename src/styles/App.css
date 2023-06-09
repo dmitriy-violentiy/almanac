@@ -20,6 +20,121 @@
    text-align: center;
 }
 
+.menu {
+   position: fixed;
+   width: 100vw;
+   height: 100vh;
+   top: 0;
+   left: 0;
+   transform: translateX(-130%);
+   transition: all 0.5s;
+}
+
+.menu.active {
+   transform: translateX(0);
+}
+
+.blur {
+   width: 100vw;
+   height: 100vh;
+   left: 30%;
+   backdrop-filter: blur(2px);
+   position: absolute;
+}
+
+.menu__content {
+   width: 30%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: gray;
+   transition: all 0.8s;
+}
+
+.menu__header {
+   padding: 10px;
+   font-size: 1.5rem;
+   color: #fff;
+   border-bottom: 1px solid #fff;
+   width: 100%;
+   text-align: center;
+}
+
+.menu__header_links {
+   display: flex;
+   flex-direction: column;
+   margin-top: 25px;
+   
+}
+
+.menu__header_links a {
+   padding: 5px;
+   color: #fff;
+   font-size: 25px;
+   text-decoration: none;
+   cursor: pointer;
+}
+
+.menu__personal_info {
+   margin-top: 15px;
+   text-align: center;
+   font-size: 20px;
+   color: #000;
+}
+
+.menu__personal_info a {
+   color: #000;
+   text-decoration: none;
+}
+
+.menu__personal_info img {
+   max-width: 250px;
+   border-radius: 10%;
+}
+
+nav {
+   height: 20px;
+   width: 100%;
+   z-index: 50;
+   display: flex;
+   align-items: center;
+}
+
+.burger-btn {
+   width: 20px;
+   height: 20px;
+   margin-left: 20px;
+   position: relative;
+   cursor: pointer;
+}
+
+.burger-btn::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   width: 30px;
+   background-color: black;
+   height: 2px;
+}
+
+.burger-btn span {
+   position: absolute;
+   bottom: 9px;
+   width: 30px;
+   background-color: black;
+   height: 2px;
+}
+
+.burger-btn::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   width: 30px;
+   background-color: black;
+   height: 2px;
+}
+
 .post__info {
    max-width: 800px;
    padding: 0 5px;
@@ -91,6 +206,10 @@ select {
    background-color: lightgray;
  }
 
+ .navbar__links {
+   display: flex;
+ }
+
  .navbar__links a {
    color: #000;
    font-weight: bold;
@@ -130,4 +249,13 @@ select {
    display: flex;
    align-items: center;
  }
+
+@media screen and (max-width: 768px) {
+   .menu__content {
+      width: 100%;
+   }
+   .blur {
+      backdrop-filter: none;
+   }
+}
 
