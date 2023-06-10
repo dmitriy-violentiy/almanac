@@ -11,7 +11,6 @@ import Loader from "../components/UI/loader/Loader";
 import { useFetching } from "../hooks/useFetching";
 import { getPageCount } from "../components/utils/pages";
 import Pagination from "../components/UI/pagination/Pagination";
-import { useObserver } from "../hooks/useObserver";
 import MySelect from "../components/UI/select/MySelect";
 
 function Posts() {
@@ -19,27 +18,17 @@ function Posts() {
    const [filter, setFilter] = useState({sort: '', query: ''})
    const [modal, setModal] = useState(false)
    const [totalPages, setTotalPages] = useState(0)
-   const [limit, setLimit] = useState(10)
+   const [limit, setLimit] = useState(5)
    const [page, setPage] = useState(1)
-   /* const lastElement = useRef() */
 
    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
    const [fetchPosts, isPostsLoading, postError] = useFetching( async(limit, page) => {
       const response = await PostsService.getAll(limit, page)
-      /* setPosts([...posts, ...response.data]) */
       setPosts(response.data)
       const totalCount = (response.headers['x-total-count'])
       setTotalPages(getPageCount(totalCount, limit))
    })
-
-   /* useObserver(lastElement, page < totalPages, isPostsLoading, () => {
-      setPage(page + 1)
-   }) */
-
-   /* useEffect(() => {
-      fetchPosts(limit, page)      
-   }, [page, limit]) */
 
    useEffect(() => {
       fetchPosts(limit, page)      
@@ -61,7 +50,6 @@ function Posts() {
 
    return (
       <div className="App">
-         {/* <button onClick={fetchPosts}>Получить посты</button> */}
          <MyButton onClick={() => setModal(true)}>
             Создать пост
          </MyButton>

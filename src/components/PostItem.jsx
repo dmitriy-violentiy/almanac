@@ -6,19 +6,33 @@ import PostComments from "./PostComments";
 import avatar from "../img/avatar.png"
 import { useFetching } from "../hooks/useFetching";
 import PostsService from "../API/postsService";
+import Loader from "./UI/loader/Loader";
 
 function PostItem(props) {
    const router = useNavigate()
 
-   /* const [post, setPost] = useState({})   
+   const [comments, setComments] = useState({})   
       const [fetchPostById, isLoading, error] = useFetching( async (id) => {
-      const response = await PostsService.getById(id)
-      setPost(response.data)
+         const response = await PostsService.getCommentsByPostId(id)
+      setComments(
+
+         response.data
+         
+      )
    })
    
    useEffect(() => {
       fetchPostById(props.post.id)
-   }, []) */
+   }, [])
+
+   /* console.log(comments.map(value => (
+                     
+      value.email
+      
+   ))) */
+   console.log(comments)
+
+   
 
    return (
          <div className="post">
@@ -29,8 +43,6 @@ function PostItem(props) {
                <strong>{props.post.title}</strong>
                <div>
                   {props.post.body}
-                  <PostComments />
-                  {props.post.id}
                </div>
             </div>
             <div className="post__btns">
