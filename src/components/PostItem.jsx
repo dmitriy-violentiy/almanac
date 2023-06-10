@@ -11,7 +11,7 @@ import Loader from "./UI/loader/Loader";
 function PostItem(props) {
    const router = useNavigate()
 
-   const [comments, setComments] = useState({})   
+   /* const [comments, setComments] = useState({})   
       const [fetchPostById, isLoading, error] = useFetching( async (id) => {
          const response = await PostsService.getCommentsByPostId(id)
       setComments(
@@ -25,14 +25,8 @@ function PostItem(props) {
       fetchPostById(props.post.id)
    }, [])
 
-   /* console.log(comments.map(value => (
-                     
-      value.email
-      
-   ))) */
-   console.log(comments)
-
-   
+  
+   console.log(comments) */
 
    return (
          <div className="post">
