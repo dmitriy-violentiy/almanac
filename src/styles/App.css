@@ -147,17 +147,18 @@ nav {
 }
 
 .post {
-   display: flex;
    padding: 15px;
    border: 2px solid black;
    margin-top: 15px;
-   justify-content: space-between;
+}
+
+.post_wrap {
+   display: flex;
    align-items: center;
 }
 
 .post__btns {
    display: flex;
-   margin: 3px;
 }
 
 .post__btns button {
@@ -170,7 +171,7 @@ select {
    border-radius: 0;
 }
 
-/*animation style*/
+/*animation post style*/
 .post-enter {
    transform: translateX(-1000px);
  }
@@ -244,6 +245,10 @@ select {
    margin-bottom: 20px;
  }
 
+ .post__body {
+   margin-bottom: 5px;
+ }
+
  .post__avatar img, .post__info_avatar img {
    max-width: 100px;
    margin-right: 20px;
@@ -259,6 +264,11 @@ select {
    display: flex;
    align-items: center;
  }
+
+ /* .post__comments {
+   overflow: hidden;
+   height: 0;
+ } */
 
 @media screen and (max-width: 768px) {
    .menu__content {

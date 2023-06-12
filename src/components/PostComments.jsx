@@ -25,8 +25,8 @@ const PostComments = () => {
          {isComLoading
             ? <Loader />
             :  <div>
-                  {comments.map(comm =>
-                     <div>
+                  {comments.map((comm, index) =>
+                     <div key={index}>
                         <h5>{comm.email}</h5>
                         <div>{comm.body}</div>
                      </div>
